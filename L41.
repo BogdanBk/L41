@@ -1,0 +1,125 @@
+using System;
+using System.Collections.Generic;
+
+// Базовий клас Живий організм
+public class LivingOrganism
+{
+    public int Energy { get; set; }
+    public int Age { get; set; }
+    public int Size { get; set; }
+
+    public LivingOrganism(int energy, int age, int size)
+    {
+        Energy = energy;
+        Age = age;
+        Size = size;
+    }
+}
+
+// Інтерфейс для розмноження
+public interface IReproducible
+{
+    void Reproduce();
+}
+
+// Інтерфейс для полювання
+public interface IPredator
+{
+    void Hunt(LivingOrganism prey);
+}
+
+// Клас Тварина
+public class Animal : LivingOrganism, IReproducible, IPredator
+{
+    public string Species { get; set; }
+
+    public Animal(int energy, int age, int size, string species)
+        : base(energy, age, size)
+    {
+        Species = species;
+    }
+
+    public void Reproduce()
+    {
+        Console.WriteLine($"{Species} is reproducing.");
+    }
+
+    public void Hunt(LivingOrganism prey)
+    {
+        Console.WriteLine($"{Species} is hunting.");
+        // Логіка полювання тут
+    }
+}
+
+// Клас Рослина
+public class Plant : LivingOrganism, IReproducible
+{
+    public string Type { get; set; }
+
+    public Plant(int energy, int age, int size, string type)
+        : base(energy, age, size)
+    {
+        Type = type;
+    }
+
+    public void Reproduce()
+    {
+        Console.WriteLine($"{Type} plant is reproducing.");
+    }
+}
+
+// Клас Мікроорганізм
+public class Microorganism : LivingOrganism, IReproducible
+{
+    public string Strain { get; set; }
+
+    public Microorganism(int energy, int age, int size, string strain)
+        : base(energy, age, size)
+    {
+        Strain = strain;
+    }
+
+    public void Reproduce()
+    {
+        Console.WriteLine($"{Strain} microorganism is reproducing.");
+    }
+}
+
+// Клас Екосистема
+public class Ecosystem
+{
+    private List<LivingOrganism> organisms;
+
+    public Ecosystem()
+    {
+        organisms = new List<LivingOrganism>();
+    }
+
+    public void AddOrganism(LivingOrganism organism)
+    {
+        organisms.Add(organism);
+    }
+
+    public void SimulateInteraction()
+    {
+        // Логіка взаємодії між організмами (харчування, розмноження, конкуренція) тут
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Приклад використання
+        Animal lion = new Animal(100, 5, 10, "Lion");
+        Plant oak = new Plant(50, 10, 5, "Oak");
+        Microorganism bacteria = new Microorganism(10, 1, 1, "E. coli");
+
+        Ecosystem ecosystem = new Ecosystem();
+        ecosystem.AddOrganism(lion);
+        ecosystem.AddOrganism(oak);
+        ecosystem.AddOrganism(bacteria);
+
+        ecosystem.SimulateInteraction();
+    }
+}
